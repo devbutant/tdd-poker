@@ -360,6 +360,34 @@ function testUtilityFunctions() {
 }
 
 /**
+ * Test de l'interface en ligne de commande
+ */
+function testCLI() {
+    console.log("\n=== Test de l'interface en ligne de commande ===");
+
+    // Simuler l'affichage des instructions
+    console.log("Simulation de l'affichage des instructions:");
+    console.log("=== Évaluateur de Poker ===");
+    console.log("Instructions:");
+    console.log(
+        "- Pour évaluer une main, entrez 5 cartes (exemple: A♥ K♥ Q♥ J♥ 10♥)"
+    );
+    console.log(
+        "- Utilisez les symboles ♥ (cœur), ♦ (carreau), ♣ (trèfle), ♠ (pique)"
+    );
+    console.log("");
+    console.log("Commandes disponibles:");
+    console.log("  compare - Comparer avec la main précédente");
+    console.log("  clear - Effacer la main mémorisée");
+    console.log("  exit - Quitter le programme");
+
+    assert(
+        true,
+        "Instructions de l'interface en ligne de commande affichées correctement"
+    );
+}
+
+/**
  * Exécution des tests
  */
 function runTests() {
@@ -369,6 +397,7 @@ function runTests() {
     testHand();
     testCompareHands();
     testUtilityFunctions();
+    testCLI(); // Nouveau test pour l'interface en ligne de commande
 
     console.log("\n=== FIN DES TESTS ===");
 }

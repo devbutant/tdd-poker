@@ -138,8 +138,15 @@ function runCLI() {
     });
 
     console.log("=== Évaluateur de Poker ===");
-    console.log("Entrez 5 cartes au format: A♥ K♥ Q♥ J♥ 10♥");
-    console.log("Commandes:");
+    console.log("Instructions:");
+    console.log(
+        "- Pour évaluer une main, entrez 5 cartes (exemple: A♥ K♥ Q♥ J♥ 10♥)"
+    );
+    console.log(
+        "- Utilisez les symboles ♥ (cœur), ♦ (carreau), ♣ (trèfle), ♠ (pique)"
+    );
+    console.log("");
+    console.log("Commandes disponibles:");
     console.log("  compare - Comparer avec la main précédente");
     console.log("  clear - Effacer la main mémorisée");
     console.log("  exit - Quitter le programme");
