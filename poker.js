@@ -77,7 +77,7 @@ function dealCards(deck, numCards) {
 
 /**
  * Crée une main de poker à partir d'une chaîne de caractères
- * Format: "As♥ Roi♥ Dame♥ Valet♥ 10♥" ou "A♥ K♥ Q♥ J♥ 10♥"
+ * Format: "Ah Kh Qh Jh Th" (As de cœur, Roi de cœur, etc.)
  * @param {string} handString - La chaîne représentant la main
  * @returns {Hand} - La main de poker
  */
@@ -88,42 +88,41 @@ function createHandFromString(handString) {
         throw new Error("Une main de poker doit contenir exactement 5 cartes");
     }
 
-    const cards = cardStrings.map((cardStr) => {
-        // Extraire le rang et la couleur
-        const rankMap = {
-            As: "A",
-            Roi: "K",
-            Dame: "Q",
-            Valet: "J",
-            A: "A",
-            K: "K",
-            Q: "Q",
-            J: "J",
-        };
+    const cards = [];
 
-        const suitMap = {
-            "♥": "hearts",
-            "♦": "diamonds",
-            "♣": "clubs",
-            "♠": "spades",
-        };
-
-        let rank, suit;
-
-        // Trouver la couleur (dernier caractère)
-        const suitChar = cardStr.slice(-1);
-        suit = suitMap[suitChar];
-
-        if (!suit) {
-            throw new Error(`Couleur invalide: ${suitChar}`);
+    for (const cardStr of cardStrings) {
+        if (cardStr.length < 2) {
+            throw new Error(`Format de carte invalide: ${cardStr}`);
         }
 
-        // Extraire le rang (tout sauf le dernier caractère)
-        const rankStr = cardStr.slice(0, -1);
-        rank = rankMap[rankStr] || rankStr;
+        const rankChar = cardStr.slice(0, -1);
+        const suitChar = cardStr.slice(-1);
 
-        return new Card(rank, suit);
-    });
+        let rank = rankChar;
+        if (rankChar === "T") {
+            rank = "10";
+        }
+
+        let suit;
+        switch (suitChar) {
+            case "h":
+                suit = "hearts";
+                break;
+            case "d":
+                suit = "diamonds";
+                break;
+            case "c":
+                suit = "clubs";
+                break;
+            case "s":
+                suit = "spades";
+                break;
+            default:
+                throw new Error(`Couleur invalide: ${suitChar}`);
+        }
+
+        cards.push(new Card(rank, suit));
+    }
 
     return new Hand(cards);
 }
@@ -140,11 +139,20 @@ function runCLI() {
     console.log("=== Évaluateur de Poker ===");
     console.log("Instructions:");
     console.log(
-        "- Pour évaluer une main, entrez 5 cartes (exemple: A♥ K♥ Q♥ J♥ 10♥)"
+        "- Pour évaluer une main, entrez 5 cartes (exemple: Ah Kh Qh Jh Th)"
     );
-    console.log(
-        "- Utilisez les symboles ♥ (cœur), ♦ (carreau), ♣ (trèfle), ♠ (pique)"
-    );
+    console.log("- Utilisez les codes standard pour les rangs:");
+    console.log("  A = As (Ace)");
+    console.log("  K = Roi (King)");
+    console.log("  Q = Dame (Queen)");
+    console.log("  J = Valet (Jack)");
+    console.log("  T = 10 (Ten)");
+    console.log("  9, 8, 7, 6, 5, 4, 3, 2 pour les autres valeurs");
+    console.log("- Utilisez les codes standard pour les couleurs:");
+    console.log("  h = Hearts (Cœur)");
+    console.log("  d = Diamonds (Carreau)");
+    console.log("  c = Clubs (Trèfle)");
+    console.log("  s = Spades (Pique)");
     console.log("");
     console.log("Commandes disponibles:");
     console.log("  compare - Comparer avec la main précédente");
