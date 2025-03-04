@@ -8,6 +8,12 @@ Un projet simple pour évaluer et comparer des mains de poker.
 -   Comparaison de mains pour déterminer la gagnante
 -   Simulation de parties de poker
 
+## Jouer
+
+```bash
+node poker.js
+```
+
 ## Exécuter les tests
 
 ```bash
