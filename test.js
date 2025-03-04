@@ -221,21 +221,8 @@ function testCompareHands() {
     console.log("\n=== Test de la fonction compareHands ===");
 
     // Quinte Flush Royale vs Quinte Flush
-    const royalFlush = new Hand([
-        new Card("A", "hearts"),
-        new Card("K", "hearts"),
-        new Card("Q", "hearts"),
-        new Card("J", "hearts"),
-        new Card("10", "hearts"),
-    ]);
-
-    const straightFlush = new Hand([
-        new Card("9", "spades"),
-        new Card("8", "spades"),
-        new Card("7", "spades"),
-        new Card("6", "spades"),
-        new Card("5", "spades"),
-    ]);
+    const royalFlush = createHandFromString("Ah Kh Qh Jh Th");
+    const straightFlush = createHandFromString("9s 8s 7s 6s 5s");
 
     assert(
         compareHands(royalFlush, straightFlush) === 1,
@@ -247,21 +234,8 @@ function testCompareHands() {
     );
 
     // Même type de main, différentes valeurs
-    const fourKings = new Hand([
-        new Card("K", "hearts"),
-        new Card("K", "diamonds"),
-        new Card("K", "clubs"),
-        new Card("K", "spades"),
-        new Card("5", "hearts"),
-    ]);
-
-    const fourQueens = new Hand([
-        new Card("Q", "hearts"),
-        new Card("Q", "diamonds"),
-        new Card("Q", "clubs"),
-        new Card("Q", "spades"),
-        new Card("5", "hearts"),
-    ]);
+    const fourKings = createHandFromString("Kh Kd Kc Ks 5h");
+    const fourQueens = createHandFromString("Qh Qd Qc Qs 5h");
 
     assert(
         compareHands(fourKings, fourQueens) === 1,
@@ -273,13 +247,7 @@ function testCompareHands() {
     );
 
     // Même type et même valeur principale, mais kicker différent
-    const fourKingsAce = new Hand([
-        new Card("K", "hearts"),
-        new Card("K", "diamonds"),
-        new Card("K", "clubs"),
-        new Card("K", "spades"),
-        new Card("A", "hearts"),
-    ]);
+    const fourKingsAce = createHandFromString("Kh Kd Kc Ks Ah");
 
     assert(
         compareHands(fourKingsAce, fourKings) === 1,
@@ -291,13 +259,7 @@ function testCompareHands() {
     );
 
     // Égalité parfaite
-    const royalFlush2 = new Hand([
-        new Card("A", "diamonds"),
-        new Card("K", "diamonds"),
-        new Card("Q", "diamonds"),
-        new Card("J", "diamonds"),
-        new Card("10", "diamonds"),
-    ]);
+    const royalFlush2 = createHandFromString("Ad Kd Qd Jd Td");
 
     assert(
         compareHands(royalFlush, royalFlush2) === 0,
@@ -346,13 +308,13 @@ function testUtilityFunctions() {
     );
 
     // Test de createHandFromString
-    const handFromString = createHandFromString("A♥ K♥ Q♥ J♥ 10♥");
+    const handFromString = createHandFromString("Ah Kh Qh Jh Th");
     assert(
         handFromString.type === HandType.ROYAL_FLUSH,
         "createHandFromString crée correctement une main à partir d'une chaîne"
     );
 
-    const handFromString2 = createHandFromString("10♠ 10♥ 10♦ 2♣ 2♠");
+    const handFromString2 = createHandFromString("Ts Th Td 2c 2s");
     assert(
         handFromString2.type === HandType.FULL_HOUSE,
         "createHandFromString fonctionne avec différents types de mains"
@@ -370,11 +332,20 @@ function testCLI() {
     console.log("=== Évaluateur de Poker ===");
     console.log("Instructions:");
     console.log(
-        "- Pour évaluer une main, entrez 5 cartes (exemple: A♥ K♥ Q♥ J♥ 10♥)"
+        "- Pour évaluer une main, entrez 5 cartes (exemple: Ah Kd Qc Js Th)"
     );
-    console.log(
-        "- Utilisez les symboles ♥ (cœur), ♦ (carreau), ♣ (trèfle), ♠ (pique)"
-    );
+    console.log("- Utilisez les codes standard pour les rangs:");
+    console.log("  A = As (Ace)");
+    console.log("  K = Roi (King)");
+    console.log("  Q = Dame (Queen)");
+    console.log("  J = Valet (Jack)");
+    console.log("  T = 10 (Ten)");
+    console.log("  9, 8, 7, 6, 5, 4, 3, 2 pour les autres valeurs");
+    console.log("- Utilisez les codes standard pour les couleurs:");
+    console.log("  h = Hearts (Cœur)");
+    console.log("  d = Diamonds (Carreau)");
+    console.log("  c = Clubs (Trèfle)");
+    console.log("  s = Spades (Pique)");
     console.log("");
     console.log("Commandes disponibles:");
     console.log("  compare - Comparer avec la main précédente");
