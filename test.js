@@ -402,24 +402,3 @@ if (result === 1) {
 } else {
     console.log("\nÉgalité!");
 }
-
-// Exemples de mains spécifiques
-console.log("\n=== EXEMPLES DE MAINS SPÉCIFIQUES ===");
-
-const examples = [
-    "A♥ K♥ Q♥ J♥ 10♥", // Quinte Flush Royale
-    "9♠ 8♠ 7♠ 6♠ 5♠", // Quinte Flush
-    "7♥ 7♦ 7♠ 7♣ 9♥", // Carré
-    "10♥ 10♦ 10♠ 4♣ 4♥", // Full
-    "A♣ 10♣ 7♣ 6♣ 2♣", // Couleur
-    "9♥ 8♣ 7♠ 6♦ 5♥", // Quinte
-    "8♥ 8♦ 8♠ K♣ 3♦", // Brelan
-    "J♥ J♣ 4♠ 4♥ A♦", // Deux Paires
-    "10♥ 10♣ K♠ 4♥ 3♦", // Paire
-    "A♥ Q♣ 10♠ 5♥ 3♦", // Carte Haute
-];
-
-examples.forEach((example) => {
-    const hand = createHandFromString(example);
-    console.log(`${example} => ${hand.typeString}`);
-});

@@ -1,0 +1,16 @@
+{
+    "name": "poker-evaluator",
+    "version": "1.0.0",
+    "description": "Évaluateur de mains de poker en JavaScript",
+    "main": "poker.js",
+    "scripts": {
+        "test": "node test.js"
+    },
+    "keywords": [
+        "poker",
+        "cards",
+        "game"
+    ],
+    "author": "",
+    "license": "MIT"
+}
